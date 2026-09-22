@@ -1,4 +1,4 @@
-const CACHE = 'mein-tagesplaner-v2-22-47-final-20260922';
+const CACHE = 'mein-tagesplaner-v2-22-59-final-20260922';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
   self.skipWaiting();

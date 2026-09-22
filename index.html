@@ -1,13 +1,5 @@
 <!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mein Tagesplaner</title>
-<meta name="theme-color" content="#f7f5fa">
-<meta name="application-name" content="Mein Tagesplaner">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Tagesplaner">
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="icon" href="./icon-192.png" sizes="192x192">
-<link rel="apple-touch-icon" href="./icon-192.png"><!-- v2.20.2 Heute/Woche Konsistenz --><style>
+<title>Mein Tagesplaner</title><!-- v2.20.2 Heute/Woche Konsistenz --><style>
 *{box-sizing:border-box}body{margin:0;background:#f7f5fa;color:#29252e;font:15px system-ui,-apple-system,sans-serif}.app{max-width:760px;margin:auto;padding:18px 14px 90px}.card{background:#fff;border:1px solid #e9e3ee;border-radius:20px;padding:16px;margin:11px 0;box-shadow:0 4px 18px #392d4c0b}h1,h2,h3{margin:0 0 9px}.muted{color:#746f79}.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.between{justify-content:space-between}.btn{border:0;border-radius:13px;padding:10px 13px;background:#eee9f6;font-weight:700;cursor:pointer}.primary{background:#6d59c7;color:#fff}.pill{padding:5px 9px;background:#f0edf5;border-radius:99px;font-size:12px}.energy.active{outline:2px solid #6d59c7}.now{border:2px solid #d8cff5}.nowtitle{font-size:23px;font-weight:850}.timeline{display:grid;grid-template-columns:92px 1fr;gap:8px;padding:10px 0;border-bottom:1px solid #eee}.time{font-weight:800;color:#6654b3}.protected{background:#faf8fc}.done{opacity:.5;text-decoration:line-through}input,select{width:100%;padding:10px;border:1px solid #ddd5e5;border-radius:11px;background:white}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.view{display:none}.view.active{display:block}nav{position:fixed;bottom:0;left:0;right:0;z-index:8;display:flex;justify-content:center;background:#ffffffed;border-top:1px solid #e7e1ec;backdrop-filter:blur(8px)}nav button{border:0;background:none;padding:12px 16px;cursor:pointer}.notice{padding:11px;border-radius:13px;background:#fff7e8;border:1px solid #eed9aa;margin-top:10px}.good{background:#eef8f0;border-color:#cfe7d3}.overlay{display:none;position:fixed;inset:0;background:#f7f5fa;z-index:20;padding:18px}.overlay.open{display:block}.timerbox{max-width:560px;margin:4vh auto;text-align:center}.clock{font-size:64px;font-weight:900;letter-spacing:-3px;margin:22px 0}.step{font-size:25px;font-weight:850}.progress{height:9px;background:#e6e1ec;border-radius:20px;overflow:hidden}.bar{height:100%;background:#7562c7;width:0}.task{padding:11px 0;border-bottom:1px solid #eee}.debug{font-size:12px;color:#746f79}
 .weekday{border-left:4px solid #ddd5e5}.cost{font-size:12px;color:#746f79}.weektask{padding:8px 0;border-bottom:1px solid #eee}.weektask:last-child{border-bottom:0}.project{border-left:4px solid #cfc5ef}.roomcard{padding:12px 0;border-bottom:1px solid #eee}.roomcard:last-child{border-bottom:0}.roomtasks{display:none;padding-top:8px}.roomcard.open .roomtasks{display:block}.roombar{height:7px;background:#eee;border-radius:999px;overflow:hidden;margin-top:7px}.roombar>div{height:100%;background:currentColor}.subtask{padding-left:14px}@media(max-width:520px){.grid{grid-template-columns:1fr}.clock{font-size:52px}nav button{font-size:12px;padding:11px 9px}}
 
@@ -3643,6 +3635,202 @@ body{position:relative!important}
   letter-spacing:0!important;
 }
 </style>
+<style id="routine-v2249-calm-editor">
+/* v2.22.49 — Routinen: ruhige Übersicht, Bearbeitung als eigener mobiler Editor. */
+#routines{padding-bottom:110px}
+#routines>h2{margin-bottom:14px!important}
+#routines>.card,#routines .customRoutineCard{border-radius:22px!important}
+#routines .customRoutineCard{padding:15px 17px 13px!important;margin-bottom:12px!important}
+#routines .customRoutineCard h3,#routines #morningRoutineHeading{margin:0!important;font-size:18px!important;line-height:1.2!important}
+#routines .customRoutineHead{gap:7px!important}
+#routines .customRoutineHead .pill{font-size:12px!important;padding:5px 9px!important;background:#f3eff5!important}
+#routines .customRoutinePreview{margin-top:9px!important}
+#routines .customRoutinePreviewLine{padding:4px 0!important;font-size:14px!important;line-height:1.25!important;color:#514c53!important;border:0!important}
+#routines .customRoutineCard>.row.between>div:first-child>.muted{font-size:13px!important;line-height:1.25!important;color:#8c858e!important}
+#routines .customRoutineManualPlan{margin-top:10px!important}
+#routines .customRoutineManualPlan>.btn{width:100%!important;min-height:38px!important;border:0!important;background:#f6f2f6!important}
+#routines .routineEditDetails{border-top:1px solid #f0edf0!important;margin-top:10px!important;padding-top:2px!important}
+#routines .routineEditDetails>summary{color:#777078!important;font-weight:650!important;padding:9px 1px 2px!important}
+
+/* Sobald Bearbeiten geöffnet wird, wird genau dieser Bereich zum Editor-Sheet. */
+#routines .routineEditDetails[open]{
+ position:fixed!important;z-index:10020!important;inset:0!important;
+ margin:0!important;padding:0!important;border:0!important;border-radius:0!important;
+ background:rgba(40,34,42,.24)!important;overflow:auto!important;
+ display:block!important;
+}
+#routines .routineEditDetails[open]>summary{
+ position:sticky!important;top:0!important;z-index:2!important;
+ width:min(100% - 24px,560px)!important;margin:18px auto 0!important;
+ box-sizing:border-box!important;padding:16px 18px!important;
+ background:#fff!important;border-radius:22px 22px 0 0!important;
+ border:1px solid #eee9ef!important;border-bottom:0!important;
+ box-shadow:0 -2px 20px rgba(45,35,48,.08)!important;
+ color:#28242a!important;font-size:17px!important;font-weight:750!important;
+}
+#routines .routineEditDetails[open]>summary:before{content:'Routine bearbeiten';}
+#routines .routineEditDetails[open]>summary{font-size:0!important}
+#routines .routineEditDetails[open]>summary:before{font-size:17px!important}
+#routines .routineEditDetails[open]>summary:after{content:'×'!important;float:right!important;font-size:26px!important;line-height:18px!important;color:#8e8790!important;font-weight:400!important}
+#routines .routineEditDetails[open]>.routineEditBody{
+ width:min(100% - 24px,560px)!important;margin:0 auto 28px!important;
+ box-sizing:border-box!important;padding:5px 18px 22px!important;
+ background:#fff!important;border:1px solid #eee9ef!important;border-top:0!important;
+ border-radius:0 0 22px 22px!important;box-shadow:0 12px 34px rgba(45,35,48,.16)!important;
+}
+#routines .routineEditDetails[open] .routineEditBody label{margin-top:11px!important}
+#routines .routineEditDetails[open] .routineEditBody label>.muted{font-size:12px!important;margin:0 0 5px 2px!important}
+#routines .routineEditDetails[open] .routineEditBody input,
+#routines .routineEditDetails[open] .routineEditBody select,
+#routines .routineEditDetails[open] .routineEditBody .softSelectButton{height:40px!important;min-height:40px!important;font-size:14px!important}
+#routines .routineEditDetails[open] #routineEditor,
+#routines .routineEditDetails[open] .customRoutineStep{margin-top:7px!important}
+#routines .routineEditDetails[open] #routineEditor .task,
+#routines .routineEditDetails[open] .customRoutineStep{padding:8px 0!important;border-bottom:1px solid #f1eef1!important}
+#routines .routineEditDetails[open] #routineEditor .task b,
+#routines .routineEditDetails[open] .customRoutineStep b{font-size:14px!important}
+
+/* Morgenroutine: Auswahl bleibt Hauptinhalt und bekommt mehr optische Ruhe. */
+#routines>div.card:first-of-type{padding:15px 17px!important}
+#routines .morningStepsToday{margin-top:10px!important}
+#routines .morningStepsTodayHead{font-size:13px!important;color:#8b848c!important;margin-bottom:5px!important}
+#routines .morningStepToday{padding:8px 0!important;min-height:0!important}
+#routines .morningStepLabel{font-size:14px!important;line-height:1.25!important}
+#routines .morningTomorrowSelect{margin-top:8px!important;padding-top:7px!important}
+#routines .morningTomorrowSelect>summary{font-size:14px!important;padding:7px 0!important}
+
+/* Untere Aktionen klar als eigenständige, kompakte Bereiche. */
+#routines .customRoutineAdd,#routines .sportPlanCard{padding:14px 17px!important;margin-top:12px!important}
+#routines .customRoutineAdd>details>summary,#routines .sportPlanCard>details>summary{min-height:28px!important;padding:2px 0!important}
+@media(max-width:420px){
+ #routines .routineEditDetails[open]>summary{margin-top:10px!important;width:calc(100% - 16px)!important}
+ #routines .routineEditDetails[open]>.routineEditBody{width:calc(100% - 16px)!important;margin-bottom:16px!important}
+}
+</style>
+
+<style id="v2-22-52-sport-morning-fix">
+/* v2.22.52: Sport bleibt oben, darf aber eingeklappt werden. Geplante Einheiten sind eine eigene, standardmäßig geschlossene Ebene. */
+#routines #routineTotal{display:none!important}
+#routines .plannedSportsFold{border-top:1px solid #ece9e6;padding-top:8px}
+#routines .plannedSportsFold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:8px 2px;font-weight:750;color:#5f5963}
+#routines .plannedSportsFold>summary::-webkit-details-marker{display:none}
+#routines .plannedSportsFold>summary:after{content:'⌄';color:#918a94}
+#routines .plannedSportsFold[open]>summary:after{content:'⌃'}
+</style>
+
+<style id="v2-22-53-routine-menus">
+/* v2.22.53: Verwaltungsaktionen in ruhige Drei-Punkte-Menüs verschieben. */
+#routines .routineActionWrap{position:relative;display:inline-flex;align-items:center}
+#routines .routineMenuBtn{width:36px!important;min-width:36px!important;height:36px!important;min-height:36px!important;padding:0!important;border-radius:12px!important;font-size:18px!important;line-height:1!important;background:#f3f1ef!important;color:#716b73!important}
+#routines .routineActionMenu{display:none;position:absolute;right:0;top:42px;z-index:80;min-width:190px;padding:6px;background:#fff;border:1px solid #e8e4e1;border-radius:14px;box-shadow:0 10px 28px rgba(45,38,48,.14)}
+#routines .routineActionWrap.open .routineActionMenu{display:block}
+#routines .routineActionMenu button{display:flex;width:100%;align-items:center;gap:9px;border:0;background:transparent;padding:10px 11px;border-radius:10px;text-align:left;font:inherit;font-weight:700;color:#514b53;cursor:pointer}
+#routines .routineActionMenu button:active{background:#f4f1f5}
+#routines .routineActionMenu .danger{color:#76575e}
+/* Der alte Bearbeiten-Link ist in der Übersicht weg; im geöffneten Editor bleibt die Summary als Schließen-Kopf erhalten. */
+#routines .routineEditDetails:not([open]){border:0!important;margin:0!important;padding:0!important;height:0!important;overflow:hidden!important}
+#routines .routineEditDetails:not([open])>summary{display:none!important}
+/* Sportarten-Verwaltung wird nur noch über das Drei-Punkte-Menü geöffnet. */
+#routines .sportTypeManage:not([open]){margin:0!important;height:0!important;overflow:hidden!important}
+#routines .sportTypeManage:not([open])>summary{display:none!important}
+#routines .sportPlanTitleRow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+#routines .sportPlanTitleRow h3{margin:0!important}
+</style>
+
+<style id="v2-22-54-routine-polish">
+/* v2.22.54: Sport offen, elegante Aktionspunkte, keine Gesamtminuten bei manuell geplanten Routinen. */
+#routines .sportPlanCard{position:relative!important}
+#routines .sportPlanTitleRow{min-height:34px!important}
+#routines .sportPlanBody{margin-top:8px!important}
+#routines .routineMenuBtn{
+ width:30px!important;min-width:30px!important;height:30px!important;min-height:30px!important;
+ padding:0!important;border-radius:50%!important;background:transparent!important;color:#8c858e!important;
+ font-size:22px!important;font-weight:500!important;line-height:28px!important;letter-spacing:0!important;
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;box-shadow:none!important;
+}
+#routines .routineMenuBtn:hover,#routines .routineActionWrap.open .routineMenuBtn{background:#f3f0f5!important;color:#5f5863!important}
+#routines .routineActionMenu{top:35px!important;right:0!important;min-width:184px!important;border-radius:13px!important;padding:5px!important}
+#routines .routineActionMenu button{padding:9px 10px!important;font-size:13px!important;font-weight:650!important}
+#routines .customRoutineHead{gap:4px!important;flex-wrap:nowrap!important}
+#routines .routineCardDrag{color:#aaa4ac!important;opacity:.72!important}
+#routines .customRoutineCard[data-placement="manual"] .customRoutineHead>.pill{display:none!important}
+</style>
+
+<style id="v2-22-55-menu-sport-overlay-fix">
+/* v2.22.55: stabile Aktionsmenüs + Sportverwaltung als eigenes Overlay. */
+#routines .routineActionWrap{z-index:20!important}
+#routines .routineActionWrap.open{z-index:120!important}
+#routines .routineActionMenu{
+ right:0!important;left:auto!important;top:36px!important;
+ width:max-content!important;min-width:205px!important;max-width:calc(100vw - 32px)!important;
+ padding:6px!important;border-radius:14px!important;overflow:visible!important;
+ background:#fff!important;box-shadow:0 12px 34px rgba(45,38,48,.18)!important;
+}
+#routines .routineActionMenu button{
+ width:100%!important;min-width:0!important;white-space:nowrap!important;
+ display:flex!important;flex-wrap:nowrap!important;align-items:center!important;
+ padding:10px 12px!important;line-height:1.25!important;
+}
+#routines .customRoutineCard,#routines>div.card{overflow:visible!important}
+#routines .routineMenuBtn{font-size:0!important;position:relative!important}
+#routines .routineMenuBtn:after{content:'•••';font-size:14px!important;letter-spacing:2px!important;line-height:1!important;color:#8e8890}
+
+/* Sportarten verwalten: bestehende Verwaltung in einen eigenen Editor legen. */
+#routines .sportTypeManage[open]{
+ display:block!important;position:fixed!important;inset:0!important;z-index:10020!important;
+ margin:0!important;padding:74px 16px 30px!important;height:auto!important;overflow-y:auto!important;
+ background:rgba(246,245,243,.97)!important;backdrop-filter:blur(8px)!important;
+}
+#routines .sportTypeManage[open]>summary{
+ display:flex!important;position:sticky!important;top:-58px!important;z-index:2!important;
+ max-width:560px!important;margin:0 auto 10px!important;padding:14px 48px 14px 16px!important;
+ list-style:none!important;background:#fff!important;border:1px solid #e6e2de!important;border-radius:18px!important;
+ box-shadow:0 8px 26px rgba(45,38,48,.10)!important;font-size:17px!important;font-weight:800!important;
+}
+#routines .sportTypeManage[open]>summary::-webkit-details-marker{display:none!important}
+#routines .sportTypeManage[open]>summary:after{content:'×'!important;position:absolute!important;right:15px!important;top:8px!important;font-size:28px!important;font-weight:400!important;color:#7c757e!important}
+#routines .sportTypeManage[open]>div{
+ max-width:560px!important;margin:0 auto!important;padding:16px!important;background:#fff!important;
+ border:1px solid #e6e2de!important;border-radius:18px!important;box-shadow:0 8px 26px rgba(45,38,48,.08)!important;
+}
+body.sport-manage-open{overflow:hidden!important}
+@media(max-width:420px){
+ #routines .routineActionMenu{min-width:190px!important;max-width:calc(100vw - 24px)!important}
+ #routines .sportTypeManage[open]{padding-left:12px!important;padding-right:12px!important}
+}
+</style>
+<style id="v2-22-57-sport-compact">
+/* v2.22.57: Sport planen kompakter – nur Darstellung. */
+#routines .sportPlanCard{padding:12px 15px!important}
+#routines .sportPlanTitleRow{min-height:28px!important}
+#routines .sportPlanTitleRow h3{font-size:17px!important}
+#routines .sportPlanBody{margin-top:5px!important;padding:0!important}
+#routines .sportPlanBody>.grid{
+ display:grid!important;grid-template-columns:minmax(0,1.25fr) minmax(0,.95fr) minmax(0,.75fr)!important;
+ gap:6px!important;margin-top:6px!important;align-items:end!important;
+}
+#routines .sportPlanBody label{margin-top:0!important}
+#routines .sportPlanBody label>.muted{font-size:11px!important;margin:0 0 3px 2px!important}
+#routines .sportPlanBody input,#routines .sportPlanBody select,#routines .sportPlanBody .softSelectButton{
+ min-height:36px!important;height:36px!important;padding:6px 9px!important;border-radius:10px!important;font-size:13px!important;
+}
+#routines #addSport{margin-top:7px!important;min-height:35px!important;padding:6px 11px!important;font-size:13px!important;width:auto!important}
+#routines .plannedSportsFold{margin-top:8px!important;border-top:1px solid #ece8e4!important;padding-top:5px!important}
+#routines .plannedSportsFold>summary{padding:5px 1px!important;font-size:12px!important;min-height:0!important}
+#routines .plannedSportsFold #sportList{margin-top:4px!important}
+@media(max-width:520px){
+ #routines .sportPlanBody>.grid{grid-template-columns:minmax(0,1fr) minmax(0,.92fr)!important}
+ #routines .sportPlanBody>.grid>label:first-child{grid-column:1/-1!important}
+}
+</style>
+
+<meta name="theme-color" content="#f7f5fa">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Tagesplaner">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="./icon-192.png">
 </head><body><main class="app">
 <section id="today" class="view active"><div class="row between"><div><h1>Hallo Vanessa</h1><div class="muted" id="date"></div></div><div class="row"><span class="pill" id="pressure"></span><span class="pill">🧪 Planner-Engine: 6/6 Tests</span></div></div>
 <div class="card"><h3>Heute anpassen</h3><div class="grid"><label>Aufstehen<input id="wakeTime" type="time" value="08:30"></label></div><div class="muted" style="margin-top:7px">❤️ Selfcare wird automatisch in eine passende freie Zeit eingeplant.</div><div class="row" style="margin-top:9px"><button class="btn primary" id="applyToday">Tageszeiten übernehmen</button><button class="btn" id="resetMorning">Morgenroutine zurücksetzen</button></div></div><div class="card"><b>Energie</b><div class="row" style="margin-top:8px"><button class="btn energy" data-e="low">🪫 Wenig</button><button class="btn energy" data-e="normal">🙂 Normal</button><button class="btn energy" data-e="high">⚡ Viel</button></div></div>
@@ -3682,11 +3870,12 @@ body{position:relative!important}
 <div id="taskFolderManager" class="folderCreator folderManage" style="display:none"></div>
 </div></section>
 
-<section id="routines" class="view"><h2>Routinen</h2><div class="card"><div class="row between"><h3 id="morningRoutineHeading">☀️ Morgenroutine</h3><div class="row customRoutineHead"><span class="pill" id="routineTotal"></span><button class="routineCardDrag morningRoutineDrag" aria-label="Morgenroutine verschieben">⠿</button></div></div><div id="routineState" style="display:none"></div><div id="routineStats"></div><div class="row routineLegacyControls" style="display:none"><button class="btn primary" id="routineStart">▶ Routine starten</button><button class="btn" id="routineRestore">↺ Für heute zurücksetzen</button></div><details class="routineEditDetails"><summary>✏️ Routine bearbeiten</summary><div class="routineEditBody"><label><span class="muted">Name</span><input id="morningRoutineName" value="Morgenroutine"></label><label><span class="muted">Symbol</span><select id="morningRoutineIcon"><option value="🔄">🔄 Routine</option><option value="🌙">🌙 Abend</option><option value="☀️">☀️ Morgen</option><option value="📚">📚 Lernen</option><option value="🧘">🧘 Ruhe</option><option value="🧴">🧴 Pflege</option><option value="🧹">🧹 Haushalt</option><option value="💪">💪 Aktiv</option><option value="🌿">🌿 Entspannung</option><option value="⭐">⭐ Favorit</option></select></label><div id="routineEditor"></div><div class="grid" style="margin-top:9px"><input id="newRoutineTitle" placeholder="Neuer Schritt"><input id="newRoutineMin" type="number" min="1" placeholder="Minuten"></div><button class="btn" id="addRoutineStep" style="margin-top:8px">+ Schritt</button></div></details></div><div id="customRoutineList"></div><div class="card customRoutineAdd"><details><summary>＋ Neue Routine</summary><div style="margin-top:10px"><label><span class="muted">Name</span><input id="customRoutineName" placeholder="z. B. Abendroutine"></label><label><span class="muted">Symbol</span><select id="customRoutineIcon"><option value="🔄">🔄 Routine</option><option value="🌙">🌙 Abend</option><option value="☀️">☀️ Morgen</option><option value="📚">📚 Lernen</option><option value="🧘">🧘 Ruhe</option><option value="🧴">🧴 Pflege</option><option value="🧹">🧹 Haushalt</option><option value="💪">💪 Aktiv</option><option value="🌿">🌿 Entspannung</option><option value="⭐">⭐ Favorit</option></select></label><button class="btn primary" id="addCustomRoutine" style="margin-top:9px">+ Routine anlegen</button></div></details></div><div class="card sportPlanCard"><details><summary><h3>🥊 Sport planen</h3></summary><div class="sportPlanBody">
+<section id="routines" class="view"><h2>Routinen</h2><div class="card sportPlanCard"><div class="sportPlanTitleRow"><h3>🏋️ Sport planen</h3><span class="routineActionWrap sportActionWrap"><button type="button" class="btn routineMenuBtn sportMenuBtn" aria-label="Sport verwalten" aria-expanded="false">⋮</button><span class="routineActionMenu"><button type="button" class="sportManageOpen">⚙️ Sportarten verwalten</button></span></span></div><div class="sportPlanBody">
 <div class="grid" style="margin-top:10px"><label><span class="muted">Sportart</span><select id="sportType"></select></label><label><span class="muted">Datum</span><input id="sportDate" type="date"></label><label><span class="muted">Startzeit</span><input id="sportTime" type="time" value="18:30"></label></div>
-<button class="btn primary" id="addSport" style="margin-top:9px">＋ Sport einplanen</button><div id="sportList" style="margin-top:10px"></div>
+<button class="btn primary" id="addSport" style="margin-top:9px">＋ Sport einplanen</button>
+<details class="plannedSportsFold" style="margin-top:12px"><summary>📅 Geplante Sporteinheiten</summary><div id="sportList" style="margin-top:8px"></div></details>
 <details class="sportTypeManage" style="margin-top:10px"><summary>⚙️ Sportarten verwalten</summary><div style="padding-top:9px"><div id="sportTypeList"></div><div class="grid" style="margin-top:8px"><input id="newSportIcon" placeholder="Symbol" value="🏃"><input id="newSportName" placeholder="Sportart"><input id="newSportDuration" type="number" min="1" placeholder="Dauer Min"><input id="newSportTravel" type="number" min="0" placeholder="Fahrt Min"></div><button class="btn" id="addSportType" style="margin-top:8px">＋ Sportart hinzufügen</button></div></details>
-</div></details></div></section>
+</div></div><div class="card"><div class="row between"><h3 id="morningRoutineHeading">☀️ Morgenroutine</h3><div class="row customRoutineHead"><span class="pill" id="routineTotal"></span><span class="routineActionWrap"><button type="button" class="btn routineMenuBtn morningRoutineMenuBtn" aria-label="Morgenroutine Aktionen" aria-expanded="false">⋮</button><span class="routineActionMenu"><button type="button" class="morningRoutineEditOpen">✏️ Routine bearbeiten</button></span></span><button class="routineCardDrag morningRoutineDrag" aria-label="Morgenroutine verschieben">⠿</button></div></div><div id="routineState" style="display:none"></div><div id="routineStats"></div><div class="row routineLegacyControls" style="display:none"><button class="btn primary" id="routineStart">▶ Routine starten</button><button class="btn" id="routineRestore">↺ Für heute zurücksetzen</button></div><details class="routineEditDetails"><summary>✏️ Routine bearbeiten</summary><div class="routineEditBody"><label><span class="muted">Name</span><input id="morningRoutineName" value="Morgenroutine"></label><label><span class="muted">Symbol</span><select id="morningRoutineIcon"><option value="🔄">🔄 Routine</option><option value="🌙">🌙 Abend</option><option value="☀️">☀️ Morgen</option><option value="📚">📚 Lernen</option><option value="🧘">🧘 Ruhe</option><option value="🧴">🧴 Pflege</option><option value="🧹">🧹 Haushalt</option><option value="💪">💪 Aktiv</option><option value="🌿">🌿 Entspannung</option><option value="⭐">⭐ Favorit</option></select></label><div id="routineEditor"></div><div class="grid" style="margin-top:9px"><input id="newRoutineTitle" placeholder="Neuer Schritt"><input id="newRoutineMin" type="number" min="1" placeholder="Minuten"></div><button class="btn" id="addRoutineStep" style="margin-top:8px">+ Schritt</button></div></details></div><div id="customRoutineList"></div><div class="card customRoutineAdd"><details><summary>＋ Neue Routine</summary><div style="margin-top:10px"><label><span class="muted">Name</span><input id="customRoutineName" placeholder="z. B. Abendroutine"></label><label><span class="muted">Symbol</span><select id="customRoutineIcon"><option value="🔄">🔄 Routine</option><option value="🌙">🌙 Abend</option><option value="☀️">☀️ Morgen</option><option value="📚">📚 Lernen</option><option value="🧘">🧘 Ruhe</option><option value="🧴">🧴 Pflege</option><option value="🧹">🧹 Haushalt</option><option value="💪">💪 Aktiv</option><option value="🌿">🌿 Entspannung</option><option value="⭐">⭐ Favorit</option></select></label><button class="btn primary" id="addCustomRoutine" style="margin-top:9px">+ Routine anlegen</button></div></details></div></section>
 <section id="home" class="view"><h2>Haushalt</h2><div class="card"><div class="row between"><h3>🧹 Räume</h3></div><div id="roomOverview"></div><div class="grid" style="margin-top:12px"><input id="newRoomName" placeholder="Neuer Raum, z. B. Schlafzimmer"><button class="btn" id="addRoom">+ Raum anlegen</button></div></div><div class="card"><div class="row between"><h3>🏠 Heute</h3><span class="pill" id="homeProgress"></span></div><div id="homeToday"></div></div><div class="card homeTasksFoldCard"><details class="homeTasksFold"><summary><h3>＋ Aufgabe hinzufügen</h3></summary><div class="homeTasksFoldBody"><div id="homeEditor"></div><div class="homeAddBody"><div class="grid" style="margin-top:9px"><input id="newHomeTitle" placeholder="Neue Haushaltsaufgabe"><select id="newHomeRoom"></select></div><div class="grid" style="margin-top:8px"><select id="newHomeFreq"><option value="daily">Täglich</option><option value="weekly">Wöchentlich</option><option value="monthly">Monatlich</option><option value="interval">Alle X Tage</option></select><input id="newHomeInterval" type="number" min="1" placeholder="Tage"></div><button class="btn" id="addHomeTask" style="margin-top:8px">+ Aufgabe</button></div></div></details></div></section>
 <section id="care" class="view"><h2>Selfcare</h2>
 <details class="card foldCard selfcareMainFold" open><summary><span>❤️ Meine Selfcare-Ideen</span><span class="foldArrow">⌄</span></summary><div class="foldBody">
@@ -3814,7 +4003,7 @@ function renderCustomRoutines(){
  const host=$('customRoutineList');if(!host)return;
  const openRoutineIds=[...host.querySelectorAll('.customRoutineCard')].filter(c=>c.querySelector('.routineEditDetails')?.open).map(c=>c.dataset.rid);
  const iconOptions=`<option value="🔄">🔄 Routine</option><option value="🌙">🌙 Abend</option><option value="☀️">☀️ Morgen</option><option value="📚">📚 Lernen</option><option value="🧘">🧘 Ruhe</option><option value="🧴">🧴 Pflege</option><option value="🧹">🧹 Haushalt</option><option value="💪">💪 Aktiv</option><option value="🌿">🌿 Entspannung</option><option value="⭐">⭐ Favorit</option>`;
- host.innerHTML=(state.customRoutines||[]).map(r=>`<div class="card customRoutineCard" data-rid="${r.id}"><div class="row between"><div><h3>${esc(r.icon||'🔄')} ${esc(r.name)}</h3>${(r.freq&&r.freq!=='none')?`<div class="muted" style="margin-top:3px">${r.placement==='manual'?'Uhrzeit pro Tag selbst wählen':esc(r.time||'18:00')+(r.placement==='earliest'?' frühestens':'')} · ${r.freq==='daily'?'täglich':r.freq==='weekly'?['So','Mo','Di','Mi','Do','Fr','Sa'][+(r.weekday??1)]:'alle '+Math.max(2,+r.interval||2)+' Tage'}</div>`:''}</div><div class="row customRoutineHead">${customRoutineTotal(r)>0?`<span class="pill">${customRoutineTotal(r)} Min</span>`:""}<button class="btn customRoutineDelete iconBtn" data-id="${r.id}" aria-label="Routine löschen">🗑</button><button class="routineCardDrag" data-id="${r.id}" draggable="true" aria-label="Routine verschieben">⠿</button></div></div>
+ host.innerHTML=(state.customRoutines||[]).map(r=>`<div class="card customRoutineCard" data-rid="${r.id}" data-placement="${esc(r.placement||'')}"><div class="row between"><div><h3>${esc(r.icon||'🔄')} ${esc(r.name)}</h3>${(r.freq&&r.freq!=='none')?`<div class="muted" style="margin-top:3px">${r.placement==='manual'?'Uhrzeit pro Tag selbst wählen':esc(r.time||'18:00')+(r.placement==='earliest'?' frühestens':'')} · ${r.freq==='daily'?'täglich':r.freq==='weekly'?['So','Mo','Di','Mi','Do','Fr','Sa'][+(r.weekday??1)]:'alle '+Math.max(2,+r.interval||2)+' Tage'}</div>`:''}</div><div class="row customRoutineHead">${customRoutineTotal(r)>0?`<span class="pill">${customRoutineTotal(r)} Min</span>`:""}<span class="routineActionWrap"><button type="button" class="btn routineMenuBtn customRoutineMenuBtn" data-id="${r.id}" aria-label="Routine Aktionen" aria-expanded="false">⋮</button><span class="routineActionMenu"><button type="button" class="customRoutineEditOpen" data-id="${r.id}">✏️ Routine bearbeiten</button><button type="button" class="customRoutineDelete danger" data-id="${r.id}">🗑 Routine löschen</button></span></span><button class="routineCardDrag" data-id="${r.id}" draggable="true" aria-label="Routine verschieben">⠿</button></div></div>
 ${(r.steps||[]).length?`<div class="customRoutinePreview">${r.steps.map((x,i)=>`<div class="customRoutinePreviewLine">${i+1}. ${esc(x.title)} · ${x.min} Min</div>`).join('')}</div>`:''}
 ${r.placement==='manual'&&r.freq!=='none'?`<div class="customRoutineManualPlan"><button class="btn customRoutinePlanDay" data-rid="${r.id}">📅 Tag & Uhrzeit einplanen</button>${Object.entries(r.manualTimes||{}).filter(([d])=>d>=isoDate(new Date())).sort((a,b)=>a[0].localeCompare(b[0])).slice(0,4).map(([d,t])=>`<div class="muted" style="margin-top:8px">${new Date(d+'T12:00:00').toLocaleDateString('de-DE',{weekday:'short',day:'2-digit',month:'2-digit'})} · ${esc(t)}</div>`).join('')}</div>`:''}
 <details class="routineEditDetails"><summary>✏️ Routine bearbeiten</summary><div class="routineEditBody"><label><span class="muted">Name</span><input class="customRoutineNameEdit" data-rid="${r.id}" value="${esc(r.name)}"></label><label><span class="muted">Symbol</span><select id="customRoutineIcon-${r.id}" class="customRoutineIconEdit" data-rid="${r.id}">${iconOptions}</select></label>
@@ -3825,6 +4014,9 @@ ${r.placement!=='manual'?`<label class="customRoutineTimeWrap" data-rid="${r.id}
 <div class="customRoutineInterval" data-rid="${r.id}" style="${r.freq==='interval'?'':'display:none'}"><label><span class="muted">Intervall in Tagen</span><input class="customRoutineIntervalEdit" data-rid="${r.id}" type="number" min="2" value="${Math.max(2,+r.interval||2)}"></label></div>
 ${(r.steps||[]).map((x,i)=>`<div class="task customRoutineStep"><div><b>${i+1}. ${esc(x.title)}</b><div class="muted">${x.min} Min</div></div><div class="row"><button class="btn dragHandle customStepDrag" data-rid="${r.id}" data-i="${i}" draggable="true">⠿</button><button class="btn customStepEdit" data-rid="${r.id}" data-i="${i}">✎</button><button class="btn customStepDelete" data-rid="${r.id}" data-i="${i}">🗑</button></div></div>`).join('')}<div class="grid" style="margin-top:9px"><input class="customNewTitle" data-rid="${r.id}" placeholder="Neuer Schritt"><input class="customNewMin" data-rid="${r.id}" type="number" min="1" placeholder="Minuten"></div><button class="btn customAddStep" data-rid="${r.id}" style="margin-top:8px">+ Schritt</button></div></details></div>`).join('');
  host.querySelectorAll('.customRoutineCard').forEach(c=>{if(openRoutineIds.includes(c.dataset.rid)){let d=c.querySelector('.routineEditDetails');if(d)d.open=true}});
+ // Drei-Punkte-Menüs der benutzerdefinierten Routinen.
+ host.querySelectorAll('.customRoutineMenuBtn').forEach(btn=>btn.onclick=e=>{e.stopPropagation();let wrap=btn.closest('.routineActionWrap'),was=wrap.classList.contains('open');document.querySelectorAll('#routines .routineActionWrap.open').forEach(x=>x.classList.remove('open'));if(!was)wrap.classList.add('open');btn.setAttribute('aria-expanded',String(!was))});
+ host.querySelectorAll('.customRoutineEditOpen').forEach(btn=>btn.onclick=e=>{e.stopPropagation();let card=btn.closest('.customRoutineCard'),d=card?.querySelector('.routineEditDetails');btn.closest('.routineActionWrap')?.classList.remove('open');if(d)d.open=true});
  let routineDragId=null;
  host.querySelectorAll('.routineCardDrag').forEach(h=>h.ondragstart=e=>{routineDragId=h.dataset.id;e.dataTransfer.effectAllowed='move';h.closest('.customRoutineCard')?.classList.add('draggingItem')});
  host.querySelectorAll('.customRoutineCard').forEach(card=>{card.ondragover=e=>{if(routineDragId){e.preventDefault();host.querySelectorAll('.customRoutineCard').forEach(x=>x.classList.remove('dropTarget'));card.classList.add('dropTarget')}};card.ondrop=e=>{if(!routineDragId)return;e.preventDefault();let toId=card.dataset.rid,from=state.customRoutines.findIndex(x=>x.id===routineDragId),to=state.customRoutines.findIndex(x=>x.id===toId);if(from<0||to<0||from===to)return;let [x]=state.customRoutines.splice(from,1);state.customRoutines.splice(to,0,x);routineDragId=null;save();render()}});
@@ -4281,18 +4473,27 @@ function engine(){
    _plannedHomeIds.add(String(h.id));
  }
 
- // Additional free windows are shown too; explicit 15-minute buffers above already consume planning capacity.
- let occupied=plan.slice().sort((a,b)=>a.s-b.s),buffers=[],scan=start;
- for(const x of occupied){
-   if(x.e<=scan)continue;
-   if(x.s>scan&&x.s-scan>=20)buffers.push({s:scan,e:x.s,title:'🌿 Puffer / freie Zeit',type:'buffer'});
-   scan=Math.max(scan,x.e)
- }
- plan.push(...buffers);plan.sort((a,b)=>a.s-b.s||({routine:0,task:1,protected:2,fixed:3}[a.type]-{routine:0,task:1,protected:2,fixed:3}[b.type]));
+ // Buffers are presentation-only. Never carry an already calculated buffer through
+ // live completion/overrun transforms: those transforms can lengthen or move real
+ // blocks and would leave stale free-time blocks overlapping actual work.
+ plan=plan.filter(x=>x.type!=='buffer');
+ plan.sort((a,b)=>a.s-b.s||({routine:0,task:1,protected:2,fixed:3}[a.type]-{routine:0,task:1,protected:2,fixed:3}[b.type]));
  plan=applyActualCompletionChain(plan,todayDate);
  plan=applyStoredOverrunsToPlan(plan,todayDate);
  plan=mergeElapsedTodayPlan(plan);
  plan=enforceEveningRoutineLast(plan,todayDate);
+
+ // Only now derive free time from the FINAL real plan. Buffers therefore cannot
+ // overlap tasks/routines/selfcare and can never influence overload calculations.
+ plan=plan.filter(x=>x.type!=='buffer');
+ let occupied=plan.slice().sort((a,b)=>a.s-b.s||a.e-b.e),buffers=[],scan=morningWake;
+ for(const x of occupied){
+   if(x.e<=scan)continue;
+   if(x.s>scan&&x.s-scan>=15)buffers.push({s:scan,e:x.s,title:'🌿 Puffer / freie Zeit',type:'buffer'});
+   scan=Math.max(scan,x.e);
+ }
+ plan.push(...buffers);
+ plan.sort((a,b)=>a.s-b.s||({routine:0,task:1,protected:2,fixed:3,buffer:4}[a.type]-{routine:0,task:1,protected:2,fixed:3,buffer:4}[b.type]));
  return plan;
 }
 
@@ -6015,10 +6216,20 @@ function render(){renderedLocalDate=isoDate(new Date());renderCustomRoutines();
  document.querySelectorAll('.sportDel').forEach(b=>b.onclick=()=>{state.sports=state.sports.filter(x=>String(x.id)!==String(b.dataset.id));state.proposal=null;save();render();renderWeek()});
  $('addSportType').onclick=()=>{let name=$('newSportName').value.trim(),icon=$('newSportIcon').value.trim()||'🏃',duration=+$('newSportDuration').value,travel=Math.max(0,+$('newSportTravel').value||0);if(!name||!duration||duration<1){appMessage('Sportart','Bitte Name und gültige Dauer eingeben.');return}state.sportTypes.push({id:'sporttype'+Date.now(),name,icon,duration,travel,fixed:false,shower:false});save();render()};
  document.querySelectorAll('.sportTypeDel').forEach(b=>b.onclick=async()=>{let id=b.dataset.id,t=types.find(x=>String(x.id)===String(id));if(!t)return;if(!(await appConfirm('Sportart löschen?',(t.icon||'🏃')+' '+t.name+' aus dem Dropdown entfernen? Bereits eingeplante Termine bleiben erhalten.','Löschen')))return;state.sportTypes=state.sportTypes.filter(x=>String(x.id)!==String(id));save();render()});
+ // Sport-Verwaltung über das Drei-Punkte-Menü.
+ const sportMenuBtn=document.querySelector('.sportMenuBtn');
+ if(sportMenuBtn)sportMenuBtn.onclick=e=>{e.preventDefault();e.stopPropagation();let wrap=sportMenuBtn.closest('.routineActionWrap'),was=wrap.classList.contains('open');document.querySelectorAll('#routines .routineActionWrap.open').forEach(x=>x.classList.remove('open'));if(!was)wrap.classList.add('open');sportMenuBtn.setAttribute('aria-expanded',String(!was))};
+ const sportManageOpen=document.querySelector('.sportManageOpen');
+ if(sportManageOpen)sportManageOpen.onclick=e=>{e.preventDefault();e.stopPropagation();let d=document.querySelector('.sportTypeManage');sportManageOpen.closest('.routineActionWrap')?.classList.remove('open');if(d){d.open=true;document.body.classList.add('sport-manage-open')}}; const sportTypeManage=document.querySelector('.sportTypeManage'); if(sportTypeManage)sportTypeManage.addEventListener('toggle',()=>{document.body.classList.toggle('sport-manage-open',sportTypeManage.open)});
 }
+// Morgenroutine: Bearbeiten über Drei-Punkte-Menü.
+const morningMenuBtn=document.querySelector('.morningRoutineMenuBtn');
+if(morningMenuBtn)morningMenuBtn.onclick=e=>{e.stopPropagation();let wrap=morningMenuBtn.closest('.routineActionWrap'),was=wrap.classList.contains('open');document.querySelectorAll('#routines .routineActionWrap.open').forEach(x=>x.classList.remove('open'));if(!was)wrap.classList.add('open');morningMenuBtn.setAttribute('aria-expanded',String(!was))};
+const morningEditOpen=document.querySelector('.morningRoutineEditOpen');
+if(morningEditOpen)morningEditOpen.onclick=e=>{e.stopPropagation();morningEditOpen.closest('.routineActionWrap')?.classList.remove('open');let d=document.querySelector('#routines>div.card .routineEditDetails');if(d)d.open=true};
 let rs=routineSteps(),todayRoutineDate=isoDate(new Date()),tomorrowRoutineDate=(()=>{let d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+1);return isoDate(d)})(),todayRs=routineStepsForDate(todayRoutineDate),tomorrowRs=routineStepsForDate(tomorrowRoutineDate);$('routineState').innerHTML=state.routineDone?'✅ Für heute abgeschlossen':'☀️ Noch offen';$('routineTotal').textContent=todayRs.reduce((a,x)=>a+(+x.min||0),0)+' Min heute';
  let skippedToday=(state.routineSkippedByDate||{})[todayRoutineDate]||[],skippedTomorrow=(state.routineSkippedByDate||{})[tomorrowRoutineDate]||[];
- $('routineStats').innerHTML=`<div class="morningStepsToday"><div class="morningStepsTodayHead">Heute dabei</div>${rs.map((x,i)=>{let key=x.id||String(i),on=!skippedToday.includes(key);return `<label class="morningStepToday"><input class="morningTodayStep" data-key="${esc(key)}" type="checkbox" ${on?'checked':''}><span class="morningStepCheck"></span><span class="morningStepLabel">${i+1}. ${x.project?folderIcon(x.project)+' ':''}${esc(x.title)} · ${x.min} Min${state.routineLearned[i]?` <span class="pill">Ø ${state.routineLearned[i]} Min</span>`:''}</span></label>`}).join('')}</div>`;
+ $('routineStats').innerHTML=`<div class="morningStepsToday"><div class="morningStepsTodayHead">Heute dabei</div>${rs.map((x,i)=>{let key=x.id||String(i),on=!skippedToday.includes(key);return `<label class="morningStepToday"><input class="morningTodayStep" data-key="${esc(key)}" type="checkbox" ${on?'checked':''}><span class="morningStepCheck"></span><span class="morningStepLabel">${i+1}. ${x.project?folderIcon(x.project)+' ':''}${esc(x.title)} · ${x.min} Min</span></label>`}).join('')}</div>`;
  $('routineStats').insertAdjacentHTML('beforeend',`<details class="morningTomorrowSelect"><summary>🌤️ Für morgen auswählen <span class="pill">${tomorrowRs.reduce((a,x)=>a+(+x.min||0),0)} Min</span></summary><div class="morningTomorrowBody">${rs.map((x,i)=>{let key=x.id||String(i),on=!skippedTomorrow.includes(key);return `<label class="morningStepToday"><input class="morningTomorrowStep" data-key="${esc(key)}" type="checkbox" ${on?'checked':''}><span class="morningStepCheck"></span><span class="morningStepLabel">${i+1}. ${x.project?folderIcon(x.project)+' ':''}${esc(x.title)} · ${x.min} Min</span></label>`}).join('')}</div></details>`);
  document.querySelectorAll('.morningTodayStep').forEach(c=>c.onchange=()=>{state.routineSkippedByDate=state.routineSkippedByDate||{};let a=state.routineSkippedByDate[todayRoutineDate]||[],k=c.dataset.key;if(c.checked)a=a.filter(x=>x!==k);else if(!a.includes(k))a.push(k);state.routineSkippedByDate[todayRoutineDate]=a;save();render()});
  document.querySelectorAll('.morningTomorrowStep').forEach(c=>c.onchange=()=>{state.routineSkippedByDate=state.routineSkippedByDate||{};let a=state.routineSkippedByDate[tomorrowRoutineDate]||[],k=c.dataset.key;if(c.checked)a=a.filter(x=>x!==k);else if(!a.includes(k))a.push(k);state.routineSkippedByDate[tomorrowRoutineDate]=a;save();let total=routineStepsForDate(tomorrowRoutineDate).reduce((sum,x)=>sum+(+x.min||0),0),pill=c.closest('.morningTomorrowSelect')?.querySelector('summary .pill');if(pill)pill.textContent=total+' Min';});
@@ -6408,6 +6619,9 @@ function renderPlannerDiagnostic(){
  let data=plannerDiagnostic();
  box.innerHTML='<div style="margin-bottom:8px"><b>Bitte Screenshot von diesem gesamten grauen Textblock schicken.</b><br><span class="muted">Die Diagnose verändert keine Aufgaben.</span></div><pre>'+esc(JSON.stringify(data,null,2))+'</pre>';
 }
+
+// v2.22.53: Klick außerhalb schließt offene Drei-Punkte-Menüs.
+document.addEventListener('click',e=>{if(!e.target.closest?.('#routines .routineActionWrap'))document.querySelectorAll('#routines .routineActionWrap.open').forEach(x=>{x.classList.remove('open');x.querySelector('.routineMenuBtn')?.setAttribute('aria-expanded','false')})});
 </script><div id="softSelectMenu" class="softSelectMenu" style="display:none"></div><div id="appDialog" class="appDialog"><div class="appDialogCard"><h3 id="appDialogTitle"></h3><p id="appDialogText"></p><div id="appDialogExtra"></div><div class="appDialogActions"><button class="btn" id="appDialogCancel">Abbrechen</button><button class="btn primary" id="appDialogOk">Löschen</button></div></div></div>
 <button id="diagOpen" onclick="diagStandaloneOpen()" style="display:none!important">🔎 Diagnose</button>
 <div id="diagOverlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(30,25,35,.28);padding:18px;overflow:auto">
@@ -6460,8 +6674,109 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 </script>
 
+
+
+<style id="v2-22-56-real-global-menu-fix">
+/* v2.22.56 – echtes globales Popup: nicht mehr Teil der Routinenkarte. */
+#routineGlobalMenu{
+ position:fixed;z-index:30000;display:none;min-width:190px;max-width:calc(100vw - 24px);
+ padding:5px;background:#fff;border:1px solid #e7e3e0;border-radius:14px;
+ box-shadow:0 14px 38px rgba(45,38,48,.18);
+}
+#routineGlobalMenu.open{display:block}
+#routineGlobalMenu button{
+ width:100%;border:0;background:transparent;border-radius:10px;padding:10px 12px;
+ display:flex;align-items:center;gap:9px;white-space:nowrap;text-align:left;
+ font:650 13px system-ui,-apple-system,sans-serif;color:#514b53;cursor:pointer;
+}
+#routineGlobalMenu button:active{background:#f4f1f5}
+#routineGlobalMenu button.danger{color:#76575e}
+/* Die alten karteninternen Popups werden nicht mehr gerendert. */
+#routines .routineActionMenu{display:none!important}
+#routines .routineMenuBtn{
+ width:30px!important;min-width:30px!important;height:30px!important;min-height:30px!important;
+ border-radius:50%!important;background:transparent!important;box-shadow:none!important;
+ font-size:0!important;padding:0!important;
+}
+#routines .routineMenuBtn:after{content:'⋮'!important;font-size:22px!important;letter-spacing:0!important;line-height:1!important;color:#8c858e!important}
+#routines .routineMenuBtn:active{background:#f2eff3!important}
+/* Sportverwaltung ist ein echtes vollflächiges Overlay. */
+#routines .sportTypeManage[open]{
+ position:fixed!important;inset:0!important;z-index:25000!important;display:block!important;
+ height:100dvh!important;margin:0!important;padding:68px 14px 28px!important;overflow-y:auto!important;
+ background:rgba(246,245,243,.98)!important;backdrop-filter:blur(8px)!important;border:0!important;
+}
+#routines .sportTypeManage[open]>summary{
+ position:relative!important;top:auto!important;display:block!important;list-style:none!important;
+ max-width:560px!important;margin:0 auto!important;padding:16px 50px 16px 17px!important;
+ background:#fff!important;border:1px solid #e6e2de!important;border-radius:20px 20px 0 0!important;
+ box-shadow:0 8px 28px rgba(45,38,48,.09)!important;font-size:0!important;font-weight:800!important;
+}
+#routines .sportTypeManage[open]>summary:before{content:'Sportarten verwalten';font-size:18px!important}
+#routines .sportTypeManage[open]>summary:after{content:'×'!important;position:absolute!important;right:17px!important;top:8px!important;font-size:30px!important;font-weight:400!important;color:#817a83!important}
+#routines .sportTypeManage[open]>div{
+ max-width:560px!important;margin:0 auto!important;padding:14px 17px 20px!important;background:#fff!important;
+ border:1px solid #e6e2de!important;border-top:0!important;border-radius:0 0 20px 20px!important;
+ box-shadow:0 14px 32px rgba(45,38,48,.10)!important;
+}
+body.sport-manage-open{overflow:hidden!important}
+</style>
+<div id="routineGlobalMenu" role="menu" aria-hidden="true"></div>
+<script id="v2-22-56-real-global-menu-fix-js">
+(()=>{
+ const popup=document.getElementById('routineGlobalMenu');
+ if(!popup)return;
+ let activeBtn=null;
+ const closeMenu=()=>{popup.classList.remove('open');popup.setAttribute('aria-hidden','true');if(activeBtn)activeBtn.setAttribute('aria-expanded','false');activeBtn=null;popup.innerHTML=''};
+ const positionMenu=btn=>{
+   const r=btn.getBoundingClientRect();
+   popup.style.visibility='hidden';popup.classList.add('open');
+   const w=popup.offsetWidth||205,h=popup.offsetHeight||90,margin=10;
+   let left=Math.min(window.innerWidth-w-margin,Math.max(margin,r.right-w));
+   let top=r.bottom+6;
+   if(top+h>window.innerHeight-margin)top=Math.max(margin,r.top-h-6);
+   popup.style.left=left+'px';popup.style.top=top+'px';popup.style.visibility='visible';
+ };
+ const openMenu=(btn,items)=>{
+   closeMenu();activeBtn=btn;btn.setAttribute('aria-expanded','true');
+   popup.innerHTML=items.map((x,i)=>`<button type="button" data-menu-i="${i}" class="${x.danger?'danger':''}">${x.label}</button>`).join('');
+   popup.setAttribute('aria-hidden','false');positionMenu(btn);
+   popup.querySelectorAll('button').forEach((b,i)=>b.onclick=async ev=>{ev.preventDefault();ev.stopPropagation();const fn=items[i].run;closeMenu();await fn?.()});
+ };
+ // Capture phase intentionally replaces all older card-local menu handlers.
+ document.addEventListener('click',e=>{
+   const btn=e.target.closest?.('#routines .routineMenuBtn');
+   if(!btn)return;
+   e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+   if(activeBtn===btn&&popup.classList.contains('open')){closeMenu();return}
+   if(btn.classList.contains('sportMenuBtn')){
+     openMenu(btn,[{label:'⚙️ Sportarten verwalten',run:()=>{const d=document.querySelector('#routines .sportTypeManage');if(d){d.open=true;document.body.classList.add('sport-manage-open')}}}]);
+     return;
+   }
+   if(btn.classList.contains('morningRoutineMenuBtn')){
+     openMenu(btn,[{label:'✏️ Routine bearbeiten',run:()=>{const d=document.querySelector('#routines>div.card .routineEditDetails');if(d)d.open=true}}]);
+     return;
+   }
+   if(btn.classList.contains('customRoutineMenuBtn')){
+     const id=btn.dataset.id,card=btn.closest('.customRoutineCard');
+     openMenu(btn,[
+       {label:'✏️ Routine bearbeiten',run:()=>{const d=card?.querySelector('.routineEditDetails');if(d)d.open=true}},
+       {label:'🗑 Routine löschen',danger:true,run:async()=>{const r=(state.customRoutines||[]).find(x=>String(x.id)===String(id));if(await appConfirm('Routine löschen?',`„${r?.name||'Routine'}“ wird mit allen Schritten gelöscht.`)){state.customRoutines=state.customRoutines.filter(x=>String(x.id)!==String(id));save();render()}}}
+     ]);
+   }
+ },true);
+ document.addEventListener('click',e=>{if(!e.target.closest?.('#routineGlobalMenu'))closeMenu()});
+ window.addEventListener('resize',closeMenu);window.addEventListener('scroll',closeMenu,true);
+ // Keep body lock in sync even when the details is closed through its summary X.
+ const bindSportOverlay=()=>{const d=document.querySelector('#routines .sportTypeManage');if(d&&!d.dataset.v2256){d.dataset.v2256='1';d.addEventListener('toggle',()=>document.body.classList.toggle('sport-manage-open',d.open))}};
+ bindSportOverlay();
+ new MutationObserver(bindSportOverlay).observe(document.getElementById('routines'),{childList:true,subtree:true});
+})();
+</script>
+
+
 <script>
-/* PWA shell v2.22.47 — update immediately; planner logic above remains unchanged. */
+/* PWA shell v2.22.59 — update immediately; planner logic above remains unchanged. */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
     try {
