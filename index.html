@@ -1,5 +1,13 @@
 <!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mein Tagesplaner</title><!-- v2.20.2 Heute/Woche Konsistenz --><style>
+<title>Mein Tagesplaner</title>
+<meta name="theme-color" content="#f7f5fa">
+<meta name="application-name" content="Mein Tagesplaner">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Tagesplaner">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="./icon-192.png"><!-- v2.20.2 Heute/Woche Konsistenz --><style>
 *{box-sizing:border-box}body{margin:0;background:#f7f5fa;color:#29252e;font:15px system-ui,-apple-system,sans-serif}.app{max-width:760px;margin:auto;padding:18px 14px 90px}.card{background:#fff;border:1px solid #e9e3ee;border-radius:20px;padding:16px;margin:11px 0;box-shadow:0 4px 18px #392d4c0b}h1,h2,h3{margin:0 0 9px}.muted{color:#746f79}.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.between{justify-content:space-between}.btn{border:0;border-radius:13px;padding:10px 13px;background:#eee9f6;font-weight:700;cursor:pointer}.primary{background:#6d59c7;color:#fff}.pill{padding:5px 9px;background:#f0edf5;border-radius:99px;font-size:12px}.energy.active{outline:2px solid #6d59c7}.now{border:2px solid #d8cff5}.nowtitle{font-size:23px;font-weight:850}.timeline{display:grid;grid-template-columns:92px 1fr;gap:8px;padding:10px 0;border-bottom:1px solid #eee}.time{font-weight:800;color:#6654b3}.protected{background:#faf8fc}.done{opacity:.5;text-decoration:line-through}input,select{width:100%;padding:10px;border:1px solid #ddd5e5;border-radius:11px;background:white}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.view{display:none}.view.active{display:block}nav{position:fixed;bottom:0;left:0;right:0;z-index:8;display:flex;justify-content:center;background:#ffffffed;border-top:1px solid #e7e1ec;backdrop-filter:blur(8px)}nav button{border:0;background:none;padding:12px 16px;cursor:pointer}.notice{padding:11px;border-radius:13px;background:#fff7e8;border:1px solid #eed9aa;margin-top:10px}.good{background:#eef8f0;border-color:#cfe7d3}.overlay{display:none;position:fixed;inset:0;background:#f7f5fa;z-index:20;padding:18px}.overlay.open{display:block}.timerbox{max-width:560px;margin:4vh auto;text-align:center}.clock{font-size:64px;font-weight:900;letter-spacing:-3px;margin:22px 0}.step{font-size:25px;font-weight:850}.progress{height:9px;background:#e6e1ec;border-radius:20px;overflow:hidden}.bar{height:100%;background:#7562c7;width:0}.task{padding:11px 0;border-bottom:1px solid #eee}.debug{font-size:12px;color:#746f79}
 .weekday{border-left:4px solid #ddd5e5}.cost{font-size:12px;color:#746f79}.weektask{padding:8px 0;border-bottom:1px solid #eee}.weektask:last-child{border-bottom:0}.project{border-left:4px solid #cfc5ef}.roomcard{padding:12px 0;border-bottom:1px solid #eee}.roomcard:last-child{border-bottom:0}.roomtasks{display:none;padding-top:8px}.roomcard.open .roomtasks{display:block}.roombar{height:7px;background:#eee;border-radius:999px;overflow:hidden;margin-top:7px}.roombar>div{height:100%;background:currentColor}.subtask{padding-left:14px}@media(max-width:520px){.grid{grid-template-columns:1fr}.clock{font-size:52px}nav button{font-size:12px;padding:11px 9px}}
 
@@ -3635,10 +3643,6 @@ body{position:relative!important}
   letter-spacing:0!important;
 }
 </style>
-
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#f7f5fb">
-<link rel="apple-touch-icon" href="icon-192.png">
 </head><body><main class="app">
 <section id="today" class="view active"><div class="row between"><div><h1>Hallo Vanessa</h1><div class="muted" id="date"></div></div><div class="row"><span class="pill" id="pressure"></span><span class="pill">🧪 Planner-Engine: 6/6 Tests</span></div></div>
 <div class="card"><h3>Heute anpassen</h3><div class="grid"><label>Aufstehen<input id="wakeTime" type="time" value="08:30"></label></div><div class="muted" style="margin-top:7px">❤️ Selfcare wird automatisch in eine passende freie Zeit eingeplant.</div><div class="row" style="margin-top:9px"><button class="btn primary" id="applyToday">Tageszeiten übernehmen</button><button class="btn" id="resetMorning">Morgenroutine zurücksetzen</button></div></div><div class="card"><b>Energie</b><div class="row" style="margin-top:8px"><button class="btn energy" data-e="low">🪫 Wenig</button><button class="btn energy" data-e="normal">🙂 Normal</button><button class="btn energy" data-e="high">⚡ Viel</button></div></div>
@@ -5344,12 +5348,12 @@ function renderTaskFolderManager(){
    host.querySelectorAll('.folderMiniMenu').forEach(m=>{if(m!==menu)m.style.display='none'});
    menu.style.display=menu.style.display==='none'?'block':'none';
  });
- host.querySelectorAll('.folderIconEdit').forEach(b=>b.onclick=async()=>{let p=b.dataset.path,icon=await appIconPicker('Ordnersymbol',folderIcon(p));if(!icon)return;state.taskFolderMeta[p]={...(state.taskFolderMeta[p]||{}),icon};save();let keep=$('taskProject')?.value||'';renderTaskFolderSelect(keep);render();renderTaskFolderManager()});
+ host.querySelectorAll('.folderIconEdit').forEach(b=>b.onclick=async()=>{let p=b.dataset.path,icon=await appIconPicker('Ordnersymbol',folderIcon(p));if(!icon)return;state.taskFolderMeta[p]={...(state.taskFolderMeta[p]||{}),icon};save();let keep=$('taskProject')?.value||'';syncAllFolderDropdowns(keep);render();renderTaskFolderManager()});
  host.querySelectorAll('.folderRename').forEach(b=>b.onclick=async()=>{let old=b.dataset.path,name=await appPrompt('Ordner umbenennen','Neuer Ordnername',old.split(' / ').pop());if(name===null||!name.trim())return;name=name.trim().replaceAll('/','-');let parts=old.split(' / ');parts[parts.length-1]=name;let neu=parts.join(' / ');if(neu===old)return;
    state.taskFolders=(state.taskFolders||[]).map(p=>p===old||p.startsWith(old+' / ')?neu+p.slice(old.length):p);
    state.tasks.forEach(t=>{if(t.project===old||String(t.project||'').startsWith(old+' / '))t.project=neu+String(t.project).slice(old.length)});
    Object.keys(state.taskOverrides||{}).forEach(id=>{let p=state.taskOverrides[id].project;if(p===old||String(p||'').startsWith(old+' / '))state.taskOverrides[id].project=neu+String(p).slice(old.length)});
-   let meta={};Object.entries(state.taskFolderMeta||{}).forEach(([p,v])=>meta[p===old||p.startsWith(old+' / ')?neu+p.slice(old.length):p]=v);state.taskFolderMeta=meta;save();renderTaskFolderSelect(neu);render();renderTaskFolderManager()
+   let meta={};Object.entries(state.taskFolderMeta||{}).forEach(([p,v])=>meta[p===old||p.startsWith(old+' / ')?neu+p.slice(old.length):p]=v);state.taskFolderMeta=meta;save();syncAllFolderDropdowns(neu);render();renderTaskFolderManager()
  });
  host.querySelectorAll('.folderDelete').forEach(b=>b.onclick=async()=>{
    let old=b.dataset.path,parent=old.split(' / ').slice(0,-1).join(' / ');
@@ -5370,14 +5374,23 @@ function renderTaskFolderManager(){
    let meta={};Object.entries(state.taskFolderMeta||{}).forEach(([p,v])=>{if(p===old)return;meta[remap(p)]=v});state.taskFolderMeta=meta;
    state.taskFolderOpen={};
    state.taskFolderOrder={};
-   save();renderTaskFolderSelect(parent);render();renderTaskFolderManager();renderWeek();
+   save();syncAllFolderDropdowns(parent);render();renderTaskFolderManager();renderWeek();
  });
 }
 function syncTaskIconField(){let el=$('taskIcon');if(!el)return;let lab=el.closest('label');if(lab)lab.style.display=$('taskProject')?.value?'none':'block'}
 function renderTaskFolderSelect(selected){
  let el=$('taskProject');if(!el)return;let value=selected!==undefined?selected:el.value;
  let paths=allTaskFolderPaths();el.innerHTML='<option value="">Ohne Ordner</option>'+paths.map(p=>`<option value="${esc(p)}">${'　'.repeat(Math.max(0,p.split(' / ').length-1))}${folderIcon(p)} ${esc(p.split(' / ').pop())}</option>`).join('');
- el.value=paths.includes(value)?value:'';if(el._softSync)el._softSync();syncTaskIconField()
+ el.value=paths.includes(value)?value:'';
+ // The installed/PWA UI uses a custom button for native selects. Refresh that
+ // button explicitly whenever folder management changes the underlying options.
+ if(el._softSync)el._softSync();
+ el.dispatchEvent(new Event('folderoptionschange',{bubbles:false}));
+ syncTaskIconField()
+}
+function syncAllFolderDropdowns(selected){
+ renderTaskFolderSelect(selected);
+ document.querySelectorAll('select').forEach(sel=>{if(sel._softSync)sel._softSync()})
 }
 function clearTaskForm(){
  ['taskTitle','taskDur','taskDeadline','taskEarliest','taskLatest','taskProject','taskRepeatUntil'].forEach(id=>{if($(id))$(id).value='';if($('taskIcon'))$('taskIcon').value='📋'});
@@ -6014,7 +6027,7 @@ let dragMorning=null;
 document.querySelectorAll('.rDrag').forEach(h=>h.ondragstart=e=>{dragMorning=+h.dataset.i;e.dataTransfer.effectAllowed='move'});
 document.querySelectorAll('#routineEditor .task').forEach(step=>{step.ondragover=e=>{if(dragMorning!==null){e.preventDefault();document.querySelectorAll('#routineEditor .task').forEach(x=>x.classList.remove('dropTarget'));step.classList.add('dropTarget')}};step.ondrop=e=>{e.preventDefault();step.classList.remove('dropTarget');if(dragMorning===null)return;let h=step.querySelector('.rDrag'),to=+h.dataset.i,from=dragMorning;if(from===to)return;let a=routineSteps().map(x=>({...x})),[x]=a.splice(from,1);a.splice(to,0,x);state.routineSteps=a;dragMorning=null;save();render()}});
  document.querySelectorAll('.rDel').forEach(b=>b.onclick=async()=>{let a=routineSteps().map(x=>({...x}));if(a.length<=1){await appMessage('Routine','Die Routine braucht mindestens einen Schritt.');return}a.splice(+b.dataset.i,1);state.routineSteps=a;save();render()});
- document.querySelectorAll('.rEdit').forEach(b=>b.onclick=async()=>{let a=routineSteps().map(x=>({...x})),i=+b.dataset.i,title=await appPrompt('Schritt bearbeiten','Name',a[i].title),min=+(await appPrompt('Dauer bearbeiten','Minuten',a[i].min));if(title&&min>0){a[i]={title,min};state.routineSteps=a;save();render()}});
+ document.querySelectorAll('.rEdit').forEach(b=>b.onclick=async()=>{let a=routineSteps().map(x=>({...x})),i=+b.dataset.i,v=await appStepPrompt(a[i].title,a[i].min);if(v){a[i]={title:v.title,min:v.min};state.routineSteps=a;save();render()}});
  let rooms={};homeRooms().forEach(r=>rooms[r]=[]);homeTasks().forEach(x=>{let r=x.room||'Allgemein';(rooms[r]||(rooms[r]=[])).push(x)});
  $('roomOverview').innerHTML=Object.entries(rooms).sort((a,b)=>a[0].localeCompare(b[0],'de')).map(([room,list])=>{let date=isoDate(new Date()),due=list.filter(x=>homeDueToday(x,date)),done=due.filter(x=>!!state.homeDoneSession?.[date]?.[x.id]).length,pct=due.length?Math.round(done/due.length*100):100,status=due.length===0?'🟢':done===due.length?'🟢':done?'🟡':'🔴';return `<div class="roomcard"><div class="row between roomHead" style="cursor:pointer"><div><b>${status} ${esc(room)}</b><div class="muted">${due.length} fällig</div></div><div class="row"><button class="btn">Anzeigen</button><button class="btn roomDel" data-room="${esc(room)}">🗑</button></div></div><div class="roombar"><div style="width:${pct}%"></div></div><div class="roomtasks">${list.map(x=>`<div class="weektask homeRoomTask" data-home-id="${esc(x.id)}" data-room="${esc(room)}"><div class="row between"><div><b>${x.project?folderIcon(x.project)+' ':''}${esc(x.title)}</b><div class="muted">${homeFreqLabel(x)}${state.homeDoneSession?.[isoDate(new Date())]?.[x.id]?' · erledigt':homeDueToday(x)?' · offen':''}</div></div><div class="row homeRoomTaskActions">${state.homeDoneSession?.[isoDate(new Date())]?.[x.id]?`<span class="pill">✓ erledigt</span>`:homeDueToday(x)?`<span class="pill">offen</span>`:'<span class="pill">nicht fällig</span>'}<button class="btn homeRoomMenu" data-id="${esc(x.id)}" aria-label="Haushaltsaufgabe verwalten">•••</button><span class="homeTaskDrag" draggable="true" data-id="${esc(x.id)}" aria-label="Reihenfolge ändern">⠿</span></div></div></div>`).join('')}</div></div>`}).join('')||'<div class="muted">Noch keine Räume angelegt.</div>';
  document.querySelectorAll('.roomHead').forEach(h=>h.onclick=e=>{if(e.target.classList.contains('roomDel'))return;h.parentElement.classList.toggle('open')});
@@ -6208,20 +6221,24 @@ $('manageTaskFolders').onclick=()=>{let h=$('taskFolderManager');h.style.display
 $('newTaskFolder').onclick=()=>{
  let box=$('taskFolderCreator');
  if(box.style.display!=='none'){box.style.display='none';$('taskFolderName').value='';return}
- let parent=$('taskProject').value||'';
+ // A normal "Neuer Ordner" action always creates a root folder.
+ // Do not infer a parent from the currently selected task project: after creating
+ // one folder that select points at the new folder and would otherwise make the
+ // next folder an accidental child.
+ box.dataset.parent='';
  box.style.display='grid';$('taskFolderName').value='';
- $('taskFolderHint').textContent=parent?'Unterordner in „'+parent+'“':'Neuer Hauptordner';
+ $('taskFolderHint').textContent='Neuer Hauptordner';
  setTimeout(()=>$('taskFolderName').focus(),0)
 };
-$('cancelTaskFolder').onclick=()=>{$('taskFolderCreator').style.display='none';$('taskFolderName').value=''};
+$('cancelTaskFolder').onclick=()=>{$('taskFolderCreator').style.display='none';$('taskFolderCreator').dataset.parent='';$('taskFolderName').value=''};
 $('saveTaskFolder').onclick=()=>{
- let parent=$('taskProject').value||'',name=$('taskFolderName').value.trim();
+ let parent=$('taskFolderCreator').dataset.parent||'',name=$('taskFolderName').value.trim();
  if(!name){appMessage('Ordner','Bitte einen Ordnernamen eingeben.');return}
  name=name.replace(/\//g,'–');
  let path=parent?parent+' / '+name:name;
  if(!state.taskFolders)state.taskFolders=[];
  if(!state.taskFolders.includes(path))state.taskFolders.push(path);if(!state.taskFolderMeta[path])state.taskFolderMeta[path]={icon:'📁'};
- save();renderTaskFolderSelect(path);$('taskFolderCreator').style.display='none';$('taskFolderName').value='';
+ save();syncAllFolderDropdowns(path);$('taskFolderCreator').style.display='none';$('taskFolderName').value='';
  render()
 };
 let taskSaveBusy=false;
@@ -6444,8 +6461,20 @@ document.addEventListener('DOMContentLoaded',()=>{
 </script>
 
 <script>
-if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+/* PWA shell v2.22.47 — update immediately; planner logic above remains unchanged. */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', async () => {
+    try {
+      const reg = await navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' });
+      await reg.update();
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+        refreshing = true;
+        location.reload();
+      });
+    } catch (err) { console.warn('PWA service worker:', err); }
+  });
 }
 </script>
 </body></htmlif(!Array.isArray(state.careIdeas))state.careIdeas=[
